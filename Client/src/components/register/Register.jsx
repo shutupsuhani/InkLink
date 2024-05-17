@@ -11,10 +11,37 @@ import { motion } from "framer-motion";
 
 const Register = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const [lowerValidated, setLowerValidated] = useState(false);
+  const [upperValidated, setUpperValidated] = useState(false);
+  const [numberValidated, setNumberValidated] = useState(false);
+  const [specialValidated, setSpecialValidated] = useState(false);
+  const [lengthValidated, setLengthValidated] = useState(false);
 
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
   };
+
+  function PasswordChecker(event) {
+    const lower = new RegExp("(?=.*[a-z])");
+    const upper = new RegExp("(?=.*[A-Z])");
+    const number = new RegExp("(?=.*[0-9])");
+    const special = new RegExp("(?=.*[!_@.#$%^&*])");
+    const length = new RegExp("(?=.{8,})");
+    const value = event.target.value;
+
+    // Checking each criteria and updating corresponding state
+    setLowerValidated(lower.test(value));
+    setUpperValidated(upper.test(value));
+    setNumberValidated(number.test(value));
+    setSpecialValidated(special.test(value));
+    setLengthValidated(length.test(value));
+
+    // Setting the form data
+    setFormData((prevData) => ({
+      ...prevData,
+      [event.target.name]: event.target.value,
+    }));
+  }
 
   return (
     <>
@@ -86,6 +113,7 @@ const Register = () => {
                       type={passwordVisible ? "text" : "password"}
                       placeholder="Enter Password"
                       required
+                      onBlur={PasswordChecker} // Call PasswordChecker onBlur
                     />
                     <FontAwesomeIcon
                       icon={passwordVisible ? faEyeSlash : faEye}
@@ -93,6 +121,36 @@ const Register = () => {
                       onClick={togglePasswordVisibility}
                     />
                   </div>
+                  {/* Feedback for password criteria */}
+                  {lowerValidated ||
+                  upperValidated ||
+                  numberValidated ||
+                  specialValidated ||
+                  lengthValidated ? (
+                    <div style={{ color: "red", fontFamily: "monospace" }}>
+                      {!lowerValidated && (
+                        <p>
+                          Password must contain at least one lowercase letter
+                        </p>
+                      )}
+                      {!upperValidated && (
+                        <p>
+                          Password must contain at least one uppercase letter
+                        </p>
+                      )}
+                      {!numberValidated && (
+                        <p>Password must contain at least one number</p>
+                      )}
+                      {!specialValidated && (
+                        <p>
+                          Password must contain at least one special character
+                        </p>
+                      )}
+                      {!lengthValidated && (
+                        <p>Password must be at least 8 characters long</p>
+                      )}
+                    </div>
+                  ) : null}
                 </div>
                 <button type="submit" className="registerbutton">
                   Register
