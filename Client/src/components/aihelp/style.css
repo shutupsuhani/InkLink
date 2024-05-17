@@ -3,13 +3,15 @@
 .container {
     padding: 20px;
     height: auto;
-    background-color: #0056b3;
+    background-color:white;
     width: 500px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin:auto;
+    margin:0 auto;
+    margin-left: 300px;
+    
 }
 
 .ai-help {

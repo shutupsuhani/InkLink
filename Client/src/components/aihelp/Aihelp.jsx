@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import  { useState } from 'react';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { getBase64 } from './helpers/imageHelper.js';
 import { GEMINI_API_KEY } from './core/config';
@@ -76,11 +76,10 @@ const Aihelp = () => {
         <>
             <Topbar />
             <div className="container">
-                <h2>AI Image Recognition</h2>
                 <div className="ai-help">
                     <div style={{ marginBottom: 20 }}>
                         {loading ? (
-                            <img src="load2.gif" alt="Loading" style={{ width: 40, height: 40 }} />
+                            <img src="loading.gif" alt="Loading" style={{ width: 40, height: 40 }} />
                         ) : (
                             <div>
                                 {aiResponse && (

@@ -1,0 +1,149 @@
+.registerContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .content {
+    display: flex;
+    align-items: center;
+  }
+  
+
+.signupcontainer {
+    height: auto;
+    width: 400px;
+    background-color: white;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 5px;
+  }
+  
+  h2 {
+    text-align: center;
+    color: purple;
+  }
+  
+  .forminput {
+    width: 90%;
+    height: 90%;
+    margin: auto;
+    align-items: center;
+    padding: 5px;
+    margin-top: 10px;
+  }
+  
+.NameInputField {
+  display: flex;
+  justify-content: space-between;
+}
+
+  .Inputfield {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .inputlabel {
+    color: purple;
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    margin-left: 4px;
+    margin-top: 4px;
+  }
+  
+  .inputwrapper {
+    position: relative;
+  }
+  
+  .inputarea {
+    width: 90%;
+    height: 30px;
+    border-radius: 5px;
+    margin-top: 3px;
+    border: 1px solid rgb(135, 133, 133);
+    padding-right: 30px; /* Space for the icon */
+  }
+  
+  .inputarea:focus {
+    outline: none;
+  }
+  
+  .inputicon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #888;
+    cursor: pointer;
+  }
+  
+  .registerbutton {
+    background-color:purple;
+    color: white;
+    margin-top: 25px;
+    width: 90%;
+    height: 30px;
+    border: 1px;
+    margin: 25px auto 0; /* Center horizontally and apply margin-top */
+    display: flex;
+    justify-content: center; /* Center content horizontally */
+    align-items: center; /* Center content vertically */
+    cursor: pointer;
+  }
+  
+  .registerbutton:hover {
+    background-color: rgb(126, 14, 170);
+  }
+  
+  /* Media query for smaller screens */
+  @media screen and (max-width: 768px) {
+    .signupcontainer {
+      width: 90%; /* Adjust container width for smaller screens */
+      height: auto; /* Allow container height to adjust based on content */
+    }
+  
+    .registerbutton {
+      width: 80%; /* Adjust button width for smaller screens */
+      max-width: 100px; /* Limit maximum width */
+      height: 40px; /* Adjust button height for smaller screens */
+    }
+  }
+  
+  p {
+    font-size: 14px;
+  }
+  
+  .logobtn {
+    background-color: rgb(243, 246, 248);
+    border-radius: 30px;
+    height: 40px;
+    width: 250px;
+    display: flex;
+    font-size: 14px;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+  }
+  
+  .logobtn:focus {
+    outline: none;
+  }
+  
+  .googlelogoimg {
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+  }
+  
+  .separator {
+    text-align: center;
+    font-weight: 600;
+    font-size: 15px;
+    color: rgb(80, 80, 212);
+  }
+  
