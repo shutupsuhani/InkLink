@@ -52,7 +52,10 @@ const Register = () => {
       >
         <div className="registerContainer">
           <div className="left">
+
+
             <div className="signupcontainer">
+              
               <h2>Register</h2>
               <form className="forminput">
                 <div className="Inputfield">
@@ -89,7 +92,7 @@ const Register = () => {
                         placeholder="Last Name"
                         required
                       />
-                      <FontAwesomeIcon icon={faUser} className="inputicon" />
+                       <FontAwesomeIcon icon={faUser} className="inputicon" />
                     </div>
                   </div>
                 </div>

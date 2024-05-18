@@ -1,4 +1,6 @@
+//Scribble.js
 const mongoose = require("mongoose");
+
 
 const Scribble = new mongoose.Schema({
   title: { type: String, default: "untitled" },

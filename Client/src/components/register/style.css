@@ -5,9 +5,9 @@
     height: 100vh;
   }
   
-  .content {
+  .left {
     display: flex;
-    align-items: center;
+   
   }
   
 

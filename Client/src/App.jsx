@@ -1,8 +1,4 @@
-import Register from "./components/register/Register"
-
-
-
-
+import Scribble from "./components/scribble/Scribble"
 
 
 function App() {
@@ -10,7 +6,7 @@ function App() {
 
   return (
     <>
-      <Register/>
+      <Scribble/>
     </>
   )
 }
