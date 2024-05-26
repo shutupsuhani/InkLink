@@ -51,9 +51,8 @@ const Register = () => {
         transition={{ duration: 1.5 }}
       >
         <div className="registerContainer">
-          <div className="left">
-
-
+          <div className="left"> 
+          
             <div className="signupcontainer">
               
               <h2>Register</h2>
@@ -161,7 +160,7 @@ const Register = () => {
                 <p>Already Have an Account? Login</p>
               </form>
             </div>
-          </div>
+            </div>
         </div>
       </motion.div>
     </>

@@ -3,13 +3,14 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
+   
+
   }
   
   .left {
     display: flex;
-   
   }
-  
+
 
 .signupcontainer {
     height: auto;

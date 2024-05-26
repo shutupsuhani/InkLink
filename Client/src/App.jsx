@@ -1,4 +1,4 @@
-import Scribble from "./components/scribble/Scribble"
+import Home from "./components/Home/Home"
 
 
 function App() {
@@ -6,7 +6,7 @@ function App() {
 
   return (
     <>
-      <Scribble/>
+      <Home/>
     </>
   )
 }

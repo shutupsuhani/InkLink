@@ -4,6 +4,8 @@ const dotenv=require('dotenv')
 const userRouter=require('./Routes/authRoutes')
 const scribbleRouter=require('./Routes/scribbleRoutes')
 const fileuploadRouter=require('./Routes/fileuploadRoutes')
+const fs=require('fs')
+const { google }=require('googleapis')
 
 dotenv.config()
 const app=express()
