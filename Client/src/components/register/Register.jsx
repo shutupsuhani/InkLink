@@ -7,40 +7,54 @@ import {
   faEnvelope,
 } from "@fortawesome/free-solid-svg-icons";
 import "./style.css";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import axios from 'axios';
 import { motion } from "framer-motion";
 
+
 const Register = () => {
+  const [formData, setFormData] = useState({
+    firstname: '',
+    lastname: '',
+    username: '',
+    email: '',
+    password: ''
+  });
+
   const [passwordVisible, setPasswordVisible] = useState(false);
-  const [lowerValidated, setLowerValidated] = useState(false);
-  const [upperValidated, setUpperValidated] = useState(false);
-  const [numberValidated, setNumberValidated] = useState(false);
-  const [specialValidated, setSpecialValidated] = useState(false);
-  const [lengthValidated, setLengthValidated] = useState(false);
 
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
   };
 
-  function PasswordChecker(event) {
-    const lower = new RegExp("(?=.*[a-z])");
-    const upper = new RegExp("(?=.*[A-Z])");
-    const number = new RegExp("(?=.*[0-9])");
-    const special = new RegExp("(?=.*[!_@.#$%^&*])");
-    const length = new RegExp("(?=.{8,})");
-    const value = event.target.value;
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  }
 
-    // Checking each criteria and updating corresponding state
-    setLowerValidated(lower.test(value));
-    setUpperValidated(upper.test(value));
-    setNumberValidated(number.test(value));
-    setSpecialValidated(special.test(value));
-    setLengthValidated(length.test(value));
-
-    // Setting the form data
-    setFormData((prevData) => ({
-      ...prevData,
-      [event.target.name]: event.target.value,
-    }));
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post('http://localhost:3000/api/auth/signup', formData);
+      if (response && response.data) {
+        console.log('Signup successful:', response.data);
+        toast.success('Signup successful!');
+        setFormData({
+          firstname: '',
+          lastname: '',
+          username: '',
+          email: '',
+          password: ''
+        });
+      } else {
+        console.error('Error signing up: Invalid response format');
+        toast.error('Error signing up: Invalid response format');
+      }
+    } catch (err) {
+      console.error('Error signing up:', err.response ? err.response.data.message : err.message);
+      toast.error(err.response ? err.response.data.message : err.message);
+    }
   }
 
   return (
@@ -51,21 +65,14 @@ const Register = () => {
         transition={{ duration: 1.5 }}
       >
         <div className="registerContainer">
-          <div className="left"> 
-          
+          <div className="left">
             <div className="signupcontainer">
-              
               <h2>Register</h2>
-              <form className="forminput">
+              <form className="forminput" onSubmit={handleSubmit}>
                 <div className="Inputfield">
                   <label className="inputlabel">Email:</label>
                   <div className="inputwrapper">
-                    <input
-                      className="inputarea"
-                      type="email"
-                      placeholder="Email"
-                      required
-                    />
+                    <input className="inputarea" type="email" name="email" placeholder="Email" value={formData.email} onChange={handleChange} required />
                     <FontAwesomeIcon icon={faEnvelope} className="inputicon" />
                   </div>
                 </div>
@@ -73,12 +80,7 @@ const Register = () => {
                   <div className="Inputfield">
                     <label className="inputlabel">First Name:</label>
                     <div className="inputwrapper">
-                      <input
-                        className="inputarea"
-                        type="text"
-                        placeholder="First Name"
-                        required
-                      />
+                      <input className="inputarea" type="text" name="firstname" placeholder="First Name" value={formData.firstname} onChange={handleChange} required />
                       <FontAwesomeIcon icon={faUser} className="inputicon" />
                     </div>
                   </div>
@@ -88,10 +90,11 @@ const Register = () => {
                       <input
                         className="inputarea"
                         type="text"
-                        placeholder="Last Name"
+                        name="lastname"
+                        placeholder="Last Name" value={formData.lastname} onChange={handleChange}
                         required
                       />
-                       <FontAwesomeIcon icon={faUser} className="inputicon" />
+                      <FontAwesomeIcon icon={faUser} className="inputicon" />
                     </div>
                   </div>
                 </div>
@@ -101,7 +104,8 @@ const Register = () => {
                     <input
                       className="inputarea"
                       type="text"
-                      placeholder="Username"
+                      name="username"
+                      placeholder="Username" value={formData.username} onChange={handleChange}
                       required
                     />
                     <FontAwesomeIcon icon={faUser} className="inputicon" />
@@ -113,9 +117,10 @@ const Register = () => {
                     <input
                       className="inputarea"
                       type={passwordVisible ? "text" : "password"}
+                      name="password"
                       placeholder="Enter Password"
+                      value={formData.password} onChange={handleChange}
                       required
-                      onBlur={PasswordChecker} // Call PasswordChecker onBlur
                     />
                     <FontAwesomeIcon
                       icon={passwordVisible ? faEyeSlash : faEye}
@@ -123,46 +128,18 @@ const Register = () => {
                       onClick={togglePasswordVisibility}
                     />
                   </div>
-                  {/* Feedback for password criteria */}
-                  {lowerValidated ||
-                  upperValidated ||
-                  numberValidated ||
-                  specialValidated ||
-                  lengthValidated ? (
-                    <div style={{ color: "red", fontFamily: "monospace" }}>
-                      {!lowerValidated && (
-                        <p>
-                          Password must contain at least one lowercase letter
-                        </p>
-                      )}
-                      {!upperValidated && (
-                        <p>
-                          Password must contain at least one uppercase letter
-                        </p>
-                      )}
-                      {!numberValidated && (
-                        <p>Password must contain at least one number</p>
-                      )}
-                      {!specialValidated && (
-                        <p>
-                          Password must contain at least one special character
-                        </p>
-                      )}
-                      {!lengthValidated && (
-                        <p>Password must be at least 8 characters long</p>
-                      )}
-                    </div>
-                  ) : null}
                 </div>
                 <button type="submit" className="registerbutton">
                   Register
                 </button>
-                <p>Already Have an Account? Login</p>
+                <p>Already Have an Account?Login</p>
               </form>
             </div>
-            </div>
+          </div>
         </div>
       </motion.div>
+
+      <ToastContainer />
     </>
   );
 };

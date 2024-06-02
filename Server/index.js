@@ -6,10 +6,17 @@ const scribbleRouter=require('./Routes/scribbleRoutes')
 const fileuploadRouter=require('./Routes/fileuploadRoutes')
 const fs=require('fs')
 const { google }=require('googleapis')
+const cors=require('cors');
 
 dotenv.config()
 const app=express()
 app.use(express.json())
+
+app.use(cors({
+    origin:["http://localhost:5173"],
+    methods:["GET","POST"],
+    credentials:true
+}))
 
 
 mongoose.connect(process.env.MONGO);

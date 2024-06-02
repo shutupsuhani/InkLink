@@ -2,6 +2,7 @@ import { useState } from "react";
 import { HamburgetMenuClose, HamburgetMenuOpen } from "../icon.jsx";
 import "./topbar.css";
 import { motion } from "framer-motion";
+import axios from "axios"
 
 const Topbar = () => {
   const [darkMode, setDarkMode] = useState(false);
@@ -20,6 +21,18 @@ const Topbar = () => {
 
   const closeDropdown = () => {
     setDropdownOpen(false);
+  };
+
+  const handleLogout = async () => {
+    try {
+      await axios.post("http://localhost:3000/api/auth/logout");
+     
+      console.log("Logged out successfully");
+      
+     
+    } catch (error) {
+      console.error("Logout failed:", error.response.data.message);
+    }
   };
 
   return (
@@ -56,7 +69,7 @@ const Topbar = () => {
                   <ul className="dropdown-content">
                     <li>Login</li>
                     <li>Register</li>
-                    <li>Logout</li>
+                    <li onClick={handleLogout}>Logout</li>
                   </ul>
                 )}
               </div>

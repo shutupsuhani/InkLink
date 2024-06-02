@@ -1,5 +1,8 @@
 const cloudinary = require("cloudinary").v2;
+const dotenv = require("dotenv");
 const fs = require("fs");
+
+dotenv.config();
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_NAME,
@@ -7,7 +10,8 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_SECRET,
 });
 
-cloudinary.v2.uploader.upload(
+
+cloudinary.uploader.upload(
   "https://upload.wikimedia.org/wikipedia/commons/a/ae/Olympic_flag.jpg",
   { public_id: "olympic_flag" },
   function (error, result) {
@@ -19,20 +23,20 @@ const uploadOnCloudinary = async (localFilePath) => {
   try {
     if (!localFilePath) return null;
 
-    const response = await cloudinary.uploader.upload(localFilePath, {
+    const response = await cloudinary.v2.uploader.upload(localFilePath, {
       resource_type: "auto",
     });
 
-    //file has been uploaded successfully
-
-    console.log("file has been uploaded successfully", response.url);
+    // File has been uploaded successfully
+    console.log("File has been uploaded successfully", response.url);
 
     return response;
   } catch (error) {
+    console.error("Error uploading file to Cloudinary:", error);
     fs.unlinkSync(localFilePath);
-    // remove the locally saved temporary file as the upload operation got failed
+    // Remove the locally saved temporary file as the upload operation failed
     return null;
   }
 };
 
-module.exports=uploadOnCloudinary ;
+module.exports = uploadOnCloudinary;

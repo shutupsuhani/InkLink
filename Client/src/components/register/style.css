@@ -1,4 +1,7 @@
+/*style.css*/
+
 .registerContainer {
+    margin-top: 30px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -6,6 +9,8 @@
    
 
   }
+
+  
   
   .left {
     display: flex;
@@ -38,10 +43,7 @@
     margin-top: 10px;
   }
   
-.NameInputField {
-  display: flex;
-  
-}
+
 
   .Inputfield {
     display: flex;
@@ -71,7 +73,7 @@
   }
   
   .inputarea:focus {
-    outline: none;
+      outline: none;
   }
   
   .inputicon {

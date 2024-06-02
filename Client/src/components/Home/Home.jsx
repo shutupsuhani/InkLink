@@ -1,10 +1,14 @@
-import ChatAssistant from "../ChatAssistant/ChatAssistant"
+import Topbar from "../topbar/Topbar"
+
+
+
+
 
 
 const Home = () => {
   return (
     <div>
-      <ChatAssistant/>
+    <Topbar/>
     </div>
   )
 }
