@@ -1,11 +1,12 @@
 .topbar {
-  background-image: linear-gradient(rgb(132, 222, 222),rgb(149, 149, 251), rgb(215, 117, 215));
+  background: rgba(66, 93, 230, 0.6);
   width:100%;
   height: 100px;
   position:fixed;
   top: 0;
   left: 0;
-  z-index: var(--z-fixed);
+ /* z-index: var(--z-fixed); */
+  z-index: 10;
 }
 
 .nav-container {
@@ -44,6 +45,7 @@
   align-items: center;
   padding: 10px;
   margin-left: 20px;
+  
 }
 
 .btn {
@@ -52,7 +54,7 @@
 }
 
 .elements li {
-  color: #1a202c;
+  color:white;
   list-style: none;
   font-size: 20px;
   font-weight: 600;

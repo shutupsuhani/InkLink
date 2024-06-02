@@ -1,7 +1,7 @@
 const express = require("express");
 const bcrypt = require("bcrypt");
 const dotenv = require("dotenv");
-const User = require("../model/User"); // Adjust the path as needed
+const User = require("../model/User"); 
 const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
 
