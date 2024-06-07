@@ -4,6 +4,10 @@ const dotenv=require('dotenv')
 const userRouter=require('./Routes/authRoutes')
 const scribbleRouter=require('./Routes/scribbleRoutes')
 const fileuploadRouter=require('./Routes/fileuploadRoutes')
+
+const convertRouter=require('./Routes/convertRoutes.js')
+const compressRouter=require('./Routes/compressRoutes.js')
+
 const fs=require('fs')
 const { google }=require('googleapis')
 const cors=require('cors');
@@ -14,7 +18,7 @@ app.use(express.json())
 
 app.use(cors({
     origin:["http://localhost:5173"],
-    methods:["GET","POST"],
+    methods:["GET","POST","DELETE"],
     credentials:true
 }))
 
@@ -30,6 +34,8 @@ db.once('open', function() {
 app.use("/api/auth/",userRouter);
 app.use("/api/scribble/",scribbleRouter)
 app.use("/api/file",fileuploadRouter);
+app.use("/api/fileCompress",compressRouter);
+app.use("/api/fileConvert",convertRouter);
 
 app.listen(process.env.PORT,()=>{
     console.log("app is running");

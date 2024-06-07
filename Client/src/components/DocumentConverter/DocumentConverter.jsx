@@ -1,89 +1,68 @@
-import  { useState } from 'react';
-import Topbar from '../topbar/Topbar';
+import React, { useState } from 'react';
+import {
+  Paper,
+  Box,
+  Button,
+  Typography,
+  CircularProgress,
+  TextField,
+} from "@mui/material";
 
-const DocumentConverter = () => {
+const DocCompressor = () => {
+  // State for uploaded file and compression settings
   const [file, setFile] = useState(null);
-  const [conversionType, setConversionType] = useState('pdf');
-  const [convertedFileUrl, setConvertedFileUrl] = useState('');
-  const [tab, setTab] = useState('document'); // 'document' or 'image'
+  const [sizeReductionKB, setSizeReductionKB] = useState(""); // Default size reduction in KB (empty)
 
-  const handleFileChange = (event) => {
-    const selectedFile = event.target.files[0];
-    setFile(selectedFile);
+  // Function to handle file upload
+  const handleFileUpload = (event) => {
+    const uploadedFile = event.target.files[0];
+    setFile(uploadedFile);
   };
 
-  const handleConvert = () => {
-    if (!file) {
-      alert('Please select a file to convert.');
-      return;
-    }
-
-    // Simulate conversion (replace with actual conversion logic)
-    setTimeout(() => {
-      const convertedFileName = `converted_file.${conversionType}`;
-      // Simulate downloading the converted file
-      const downloadUrl = URL.createObjectURL(new Blob([], { type: 'application/octet-stream' }));
-      setConvertedFileUrl(downloadUrl);
-    }, 2000); // Simulate conversion delay (2 seconds)
+  // Function to handle size reduction in KB change
+  const handleSizeReductionKBChange = (event) => {
+    setSizeReductionKB(event.target.value);
   };
 
-  const handleTabChange = (selectedTab) => {
-    setTab(selectedTab);
-    setFile(null); // Clear file selection when switching tabs
-    setConvertedFileUrl(''); // Clear converted file URL
+  // Function to handle form submission
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    // Logic to send file and size reduction to the server for processing
+    console.log("File:", file);
+    console.log("Size Reduction (KB):", sizeReductionKB);
   };
 
   return (
-    <>
-    <Topbar/>
-    <div className="converter-container">
-      <h1>This is the right place to work with your Documents</h1>
-       <h3 className='tit'>Every tool you need to use PDFs, at your fingertips. All are 100% FREE and easy to use! Merge, split, compress, convert, rotate, unlock and watermark PDFs with just a few clicks.</h3>
-      <div className="tab-buttons">
-        <button onClick={() => handleTabChange('document')} className={tab === 'document' ? 'active' : ''}>
-          Document Converter
-        </button>
-        <button onClick={() => handleTabChange('image')} className={tab === 'image' ? 'active' : ''}>
-          Image Size Converter
-        </button>
-      </div>
-      {tab === 'document' ? (
-        <div>
-          <div className="upload-section">
-            <input type="file" onChange={handleFileChange} accept=".docx, .pdf, .txt" />
-          </div>
-          <div className="options-section">
-            <label htmlFor="conversionType">Select Conversion Type:</label>
-            <select
-              id="conversionType"
-              value={conversionType}
-              onChange={(e) => setConversionType(e.target.value)}
-            >
-              <option value="pdf">PDF</option>
-              <option value="txt">Text (TXT)</option>
-              <option value="docx">Word (DOCX)</option>
-            </select>
-            <button onClick={handleConvert}>Convert</button>
-          </div>
-        </div>
-      ) : (
-        <div>
-          <p>Image Size Converter content goes here...</p>
-          {/* Implement image size converter functionality */}
-        </div>
-      )}
-      {convertedFileUrl && (
-        <div className="output-section">
-          <h2>Converted File:</h2>
-          <a href={convertedFileUrl} download="converted_file" className="download-link">
-            Download Converted File
-          </a>
-        </div>
-      )}
-    </div>
-
-    </>
+    <Paper elevation={3} component={Box} p={3} maxWidth="sm">
+      <Typography variant="h4" align="center" gutterBottom>
+        DocCompressor
+      </Typography>
+      <form onSubmit={handleSubmit}>
+        <Box display="flex" flexDirection="column" alignItems="center" mb={2}>
+          <input type="file" onChange={handleFileUpload} required />
+        </Box>
+        <Box display="flex" flexDirection="column" alignItems="center" mb={2}>
+          <TextField
+            type="number"
+            label="Size Reduction (KB)"
+            value={sizeReductionKB}
+            onChange={handleSizeReductionKBChange}
+            InputProps={{ inputProps: { min: 0 } }}
+            style={{ marginBottom: 16, width: '100%' }}
+            InputLabelProps={{
+              shrink: true,
+            }}
+            required
+          />
+        </Box>
+        <Box display="flex" justifyContent="center">
+          <Button type="submit" variant="contained" color="primary">
+            Compress
+          </Button>
+        </Box>
+      </form>
+    </Paper>
   );
 };
 
-export default DocumentConverter;
+export default DocCompressor;
