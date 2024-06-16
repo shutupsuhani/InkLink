@@ -5,6 +5,7 @@ import "./login.css";
 import { motion } from "framer-motion";
 import { AuthContext } from "../../Context/AuthContext.jsx";
 import { loginCall } from "../../apiCall.js";
+import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
    const email=useRef();
@@ -12,6 +13,7 @@ const Login = () => {
    const password=useRef();
   const [passwordVisible, setPasswordVisible] = useState(false);
   const { isFetching, error, dispatch } = useContext(AuthContext);
+  const navigate=useNavigate();
 
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
@@ -19,8 +21,13 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Make sure email, username, and password are passed in the correct format
-    loginCall({ email:email.current.value,username:username.current.value,password:password.current.value }, dispatch);
+    try {
+      await loginCall({ email: email.current.value, username: username.current.value, password: password.current.value }, dispatch);
+      console.log("Logged in successfully"); // Log after successful login
+      navigate("/"); 
+    } catch (error) {
+      console.error("Login failed:", error.message); // Handle login failure
+    }
   };
 
   return (
@@ -80,9 +87,10 @@ const Login = () => {
                 </div>
                 {error && <p className="error-message">{error}</p>}
                 <button type="submit" className="registerbutton" disabled={isFetching}>
-                  {isFetching ? "Logging in..." : "Login"}
+                  {isFetching ? <img src="./loading.gif" width={15} height={15}/> : "Login"}
                 </button>
-                <p>Do not Have An Account? Register</p>
+                <p>Do not Have An Account? <Link to='/register'>Register</Link></p>
+                
               </form>
             </div>
           </div>

@@ -73,8 +73,9 @@ const Aihelp = () => {
     };
 
     return (
-        <>
+        <> 
             <Topbar />
+            <div>
             <div className="container">
                 <div className="ai-help">
                     <div style={{ marginBottom: 20 }}>
@@ -84,8 +85,8 @@ const Aihelp = () => {
                             <div>
                                 {aiResponse && (
                                     <div className="response-container">
-                                        <h3 className="h3">AI Response:</h3>
-                                        <p>{aiResponse}</p>
+                                        <h3 className="h3">Response:</h3>
+                                        <h4 style={{fontFamily:"sans-serif"}}>{aiResponse}</h4>
                                     </div>
                                 )}
                                 <div className="upload-container">
@@ -109,10 +110,11 @@ const Aihelp = () => {
                     </div>
                     {image && (
                         <div style={{ marginBottom: 20 }}>
-                            <img src={image} alt="Uploaded" style={{ maxWidth: '100%', maxHeight: 300 }} />
+                            <img src={image} alt="Uploaded" style={{ maxWidth: '30%', maxHeight: 100 }} />
                         </div>
                     )}
                 </div>
+            </div>
             </div>
         </>
     );

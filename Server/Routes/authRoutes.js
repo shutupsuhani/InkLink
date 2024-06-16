@@ -66,16 +66,26 @@ router.post("/login", async (req, res) => {
     expiresIn: "1d",
   });
   res.cookie("token", token, { httpOnly: true, maxAge: 360000 });
-  res.status(200).json({ token, status: true, message: "Login Successfully" });
+  res.status(200).json({ token,user, status: true, message: "Login Successfully" });
 });
 
 //logout routes
 router.post("/logout", (req, res) => {
-  // Clear the authentication token or session
-  res.clearCookie("token"); // For JWT token stored in a cookie
-  // Additional logic to clear session or token if applicable
-  res.status(200).json({ message: "Logged out successfully" });
+     
+  res.cookie('token', null, {
+    expires: new Date(Date.now()),
+    httpOnly: true,
+  });
+
+  res.status(200).json({
+    success: true,
+    message: "Logged Out",
+  });
+
+
 });
+
+
 
 router.post("/forgot-password", async (req, res) => {
   const { email } = req.body;

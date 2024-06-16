@@ -8,6 +8,7 @@ import PaletteIcon from "@mui/icons-material/Palette";
 import EraserIcon from "@mui/icons-material/HighlightOff";
 import MarkerIcon from "@mui/icons-material/Create"; // Import marker icon
 import "./style.css";
+import Topbar from "../topbar/Topbar";
 
 function Scribble() {
   const canvasRef = useRef(null);
@@ -16,6 +17,32 @@ function Scribble() {
   const [color, setColor] = useState("#000000");
   const [isErasing, setIsErasing] = useState(false);
   const [markerSize, setMarkerSize] = useState(5); // State to track marker size
+
+  const appContainerStyle = {
+    background:'url(/banner2.jpg)' ,
+    backgroundSize: 'cover',
+    width: '100%',
+    height: '100vh',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    overflow: 'hidden'
+  };
+
+  const contentContainerStyle = {
+    position: 'relative',
+    zIndex: 1,
+    backgroundColor: 'rgba(255, 255, 255, 0.8)', // Optional: Adds a slight background to content for readability
+    width: '100%',
+    height: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    overflow: 'auto'
+  };
+
 
   const handleStartDrawing = (e) => {
     setIsDrawing(true);
@@ -113,6 +140,10 @@ function Scribble() {
   };
 
   return (
+    <>
+    <Topbar/>
+    <div style={appContainerStyle}>
+    <div style={contentContainerStyle}>
     <div className="scribble-container">
       <div className="asset">
         <IconButton style={{color:"lightblue"}} onClick={toggleDropdown} aria-label="Select Color">
@@ -153,6 +184,10 @@ function Scribble() {
         style={{ cursor: isDrawing ? 'url("/pen1.png")' : "auto" }}
       ></canvas>
     </div>
+    </div>
+    </div>
+
+    </>
   );
 }
 

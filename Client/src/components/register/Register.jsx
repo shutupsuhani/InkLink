@@ -10,6 +10,7 @@ import "./style.css";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
+import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
 
@@ -132,7 +133,7 @@ const Register = () => {
                 <button type="submit" className="registerbutton">
                   Register
                 </button>
-                <p>Already Have an Account?Login</p>
+                <p>Already Have an Account?<Link to='/login'>Login</Link></p>
               </form>
             </div>
           </div>

@@ -1,68 +1,142 @@
-import React, { useState } from 'react';
+import { useState } from "react";
+import axios from "axios";
 import {
   Paper,
   Box,
   Button,
   Typography,
   CircularProgress,
-  TextField,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
 } from "@mui/material";
+import { CloudUpload, GetApp } from "@mui/icons-material";
+import "./document.css";
+import Topbar from "../topbar/Topbar";
 
-const DocCompressor = () => {
-  // State for uploaded file and compression settings
+const DocumentConverter = () => {
   const [file, setFile] = useState(null);
-  const [sizeReductionKB, setSizeReductionKB] = useState(""); // Default size reduction in KB (empty)
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [format, setFormat] = useState("images");
+  const [downloadLink, setDownloadLink] = useState("");
 
-  // Function to handle file upload
-  const handleFileUpload = (event) => {
-    const uploadedFile = event.target.files[0];
-    setFile(uploadedFile);
+  const handleFileChange = (e) => {
+    setFile(e.target.files[0]);
   };
 
-  // Function to handle size reduction in KB change
-  const handleSizeReductionKBChange = (event) => {
-    setSizeReductionKB(event.target.value);
+  const handleFormatChange = (e) => {
+    setFormat(e.target.value);
   };
 
-  // Function to handle form submission
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // Logic to send file and size reduction to the server for processing
-    console.log("File:", file);
-    console.log("Size Reduction (KB):", sizeReductionKB);
+  const handleFileUpload = async () => {
+    setLoading(true);
+    setError("");
+
+    const formData = new FormData();
+    formData.append("file", file);
+
+    try {
+      let endpoint = "";
+
+      if (format === "images") {
+        endpoint = "http://localhost:3000/api/fileConvert/convert/image2pdf";
+      } else if (format === "docx") {
+        endpoint = "http://localhost:3000/api/fileConvert/convert/doc2pdf";
+      } else {
+        throw new Error("Unsupported format selected");
+      }
+
+      const response = await axios.post(endpoint, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      setDownloadLink(response.data.downloadLink);
+    } catch (error) {
+      console.error("File upload error:", error);
+      setError("File upload failed");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleDownload = () => {
+    window.location.href = `http://localhost:3000${downloadLink}`;
   };
 
   return (
-    <Paper elevation={3} component={Box} p={3} maxWidth="sm">
-      <Typography variant="h4" align="center" gutterBottom>
-        DocCompressor
-      </Typography>
-      <form onSubmit={handleSubmit}>
-        <Box display="flex" flexDirection="column" alignItems="center" mb={2}>
-          <input type="file" onChange={handleFileUpload} required />
-        </Box>
-        <Box display="flex" flexDirection="column" alignItems="center" mb={2}>
-          <TextField
-            type="number"
-            label="Size Reduction (KB)"
-            value={sizeReductionKB}
-            onChange={handleSizeReductionKBChange}
-            InputProps={{ inputProps: { min: 0 } }}
-            style={{ marginBottom: 16, width: '100%' }}
-            InputLabelProps={{
-              shrink: true,
-            }}
-            required
-          />
-        </Box>
-        <Box display="flex" justifyContent="center">
-          <Button type="submit" variant="contained" color="primary">
-            Compress
+    <>
+    <Topbar/>
+    <Box className="container">
+      <Paper elevation={3} className="paper">
+        <Typography variant="h4" gutterBottom>
+          Document Converter
+        </Typography>
+        <FormControl fullWidth margin="normal">
+          <InputLabel>Format</InputLabel>
+          <Select value={format} onChange={handleFormatChange}>
+            <MenuItem value="images">Image to PDF</MenuItem>
+            <MenuItem value="docx">DOCX to PDF</MenuItem>
+          </Select>
+        </FormControl>
+        <input
+          accept=".jpg,.jpeg,.png,.docx"
+          id="contained-button-file"
+          multiple
+          type="file"
+          style={{ display: "none" }}
+          onChange={handleFileChange}
+        />
+        <label htmlFor="contained-button-file">
+          <Button
+            className="button"
+            variant="contained"
+            component="span"
+            startIcon={<CloudUpload />}
+          >
+            Upload File
           </Button>
-        </Box>
-      </form>
-    </Paper>
+        </label>
+
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={handleFileUpload}
+          disabled={loading || !file}
+          sx={{ margin: "1rem 1rem 1rem 1rem" }}
+        >
+          {loading ? <CircularProgress size={24} /> : "Upload"}
+        </Button>
+
+        {downloadLink && (
+          <Button
+            variant="contained"
+            color="success"
+            onClick={handleDownload}
+            startIcon={<GetApp />}
+            sx={{ margin: "0 1rem 1rem 0" }}
+          >
+            Download Converted File
+          </Button>
+        )}
+
+        {error && (
+          <Typography
+            color="error"
+            variant="body2"
+            style={{ marginTop: "10px" }}
+          >
+            {error}
+          </Typography>
+        )}
+      </Paper>
+    </Box>
+   
+    </>
   );
 };
 
-export default DocCompressor;
+export default DocumentConverter;
