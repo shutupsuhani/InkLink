@@ -18,7 +18,7 @@ const About = () => {
       <h1>{s}</h1>
       <div className="about" id="about">
         <div className="about-left" data-aos="fade-right">
-          <img src="/about1.jpg" alt="" className="about-img" />
+          <img src="doc.png" alt="" className="about-img" />
         </div>
         <div className="about-right" id="heading" data-aos="fade-left">
           <h2>Bridging the gap between ideas and solutions</h2>

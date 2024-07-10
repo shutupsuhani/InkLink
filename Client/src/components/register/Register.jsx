@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState ,useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faEye,
@@ -10,6 +10,7 @@ import "./style.css";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
+import { AuthContext } from "../../Context/AuthContext.jsx";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
@@ -24,7 +25,7 @@ const Register = () => {
   });
 
   const [passwordVisible, setPasswordVisible] = useState(false);
-
+  const { isFetching, error, dispatch } = useContext(AuthContext);
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
   };
@@ -37,7 +38,7 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('https://ink-link-server.vercel.app/api/auth/signup', formData);
+      const response = await axios.post('http://localhost:3000/api/auth/signup', formData);
       if (response && response.data) {
         console.log('Signup successful:', response.data);
         toast.success('Signup successful!');
@@ -130,8 +131,9 @@ const Register = () => {
                     />
                   </div>
                 </div>
-                <button type="submit" className="registerbutton">
-                  Register
+              
+                <button type="submit" className="registerbutton" disabled={isFetching}>
+                {isFetching ? <img src="./loading.gif" width={15} height={15}/> : "Register"}
                 </button>
                 <p>Already Have an Account?<Link to='/login'>Login</Link></p>
               </form>

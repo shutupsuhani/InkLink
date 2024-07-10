@@ -16,11 +16,13 @@ dotenv.config()
 const app=express()
 app.use(express.json())
 
-app.use(cors({
-    origin:["https://ink-link-client.vercel.app/"],
-    methods:["GET","POST","DELETE"],
-    credentials:true
-}))
+const corsOptions = {
+    origin: "http://localhost:5173",
+    methods: ["GET", "POST", "DELETE"],
+    credentials: true
+};
+
+app.use(cors(corsOptions));
 
 
 mongoose.connect(process.env.MONGO);

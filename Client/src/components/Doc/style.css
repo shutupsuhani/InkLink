@@ -1,0 +1,88 @@
+
+
+.document-upload-form {
+  position: absolute; /* Or position: fixed if you want it to be fixed to the viewport */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 300px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background-color:indigo;
+  color: white;
+  text-align: center;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+#file {
+  display: none;
+}
+
+.custom-file-upload {
+  display: inline-block;
+  padding: 10px 20px;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f8f8f8;
+ 
+}
+
+.upload-progress {
+  width: 100%;
+  background-color: #f3f3f3;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  height: 20px;
+}
+
+.upload-progress-bar {
+  height: 100%;
+  background-color: #4caf50;
+  width: 0;
+  border-radius: 5px;
+}
+
+.uploaded-file {
+  background-color: #e6ffe6;
+  padding: 10px;
+  border: 1px solid #ccffcc;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.desc {
+  margin-right: 3px;
+  background-color: indigo;
+  color: white;
+}
+
+.dropzone {
+  border: 2px dashed #ddd;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.dropzone p {
+  margin: 0;
+}

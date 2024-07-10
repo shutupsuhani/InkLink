@@ -1,10 +1,12 @@
+import About from "../about/About"
 import ChatAssistant from "../ChatAssistant/ChatAssistant"
 import Accordian from "../FAQ/Accordion"
+
 import GoToTop from "../GoTo"
-import About from "../about/About"
-import Footer from "../footer/Footer"
 import Hero from "../hero/Hero"
-import Topbar from "../topbar/Topbar"
+
+
+
 
 const Home = () => {
 
@@ -12,13 +14,14 @@ const Home = () => {
 
   return (
     <div>
-    <Topbar/>
-    
+   
+    <Hero/>
     <About/>
-    <Accordian/>
+   <Accordian/>
+    
     <GoToTop/>
     <ChatAssistant/>
-    <Footer/>
+    
     </div>
   )
 }

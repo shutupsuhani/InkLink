@@ -1,0 +1,284 @@
+c++ programming
+
+What is a Linked List ?
+A linked list is a chain of nodes that are connected to one another using pointers. Each node in a linked list has the following two things –
+
+Data: Value stored in Linked List Data Structure
+Next Pointer: Contains the address to the next node
+
+>>Comparison with Arrays
+Arrays are sequential and contiguous structures. Linked lists are non-contiguous structures i.e. each node in the linked list is scattered all over memory and need not be contiguous.
+
+This has a significant advantage as in the case of arrays we need to pre-declare the size of the array
+
+We can not increase the size of the array on requirement once the size is defined
+If the declared size of the array is too large and the requirement later is lesser, the size of the array can not be reduced, thus waste of memory.
+However, in the case of Linked List, we can increase/decrease the size or number of nodes in real-time.
+Node of a Linked List
+
+Node of a Linked List
+
+struct node
+{
+    int data;
+    struct node *next;
+};
+
+Types of Linked List
+There are three types of Linked lists majorly –
+
+>Singly Linked List
+>Doubly Linked List
+>Circular Linked List
+
+What is Singly Linked List in C++
+A Singly linked List a Sequence of nodes connected to one another using pointers. Following are components of Singly Linked List –
+
+Data – The value held
+Next Pointer – Contains the address of the next node in the sequence
+Unlike an array that is contiguous each node in a Singly Linked List is scattered all over memory and are connected to one another using pointers.
+
+
+C++ programming code for creating a singly linked list
+
+#include<iostream>
+using namespace std;
+
+class Node
+{
+    public:
+        int data;
+        Node *next;
+};
+
+void insertNode(Node** head, int data){
+    
+    Node* new_node = new Node();
+    
+    new_node->data = data;
+    new_node->next = *head;
+    *head = new_node;
+}
+void deleteNode(Node** head){
+    Node* temp = *head;
+  
+    if(*head == NULL){
+        cout << "Deletion from Empty Singly Linked Not Possible" ; return; } // move head to next node in Singly Linked List *head = (*head)->next; 
+   delete(temp); // delete the memory allocated 
+}
+
+// Function to traverse
+void display(Node* temp) {
+    cout << "Linked List: ";
+    int count = 0; 
+    
+    while(temp!=NULL){
+       cout << temp->data << " "; temp = temp->next;
+       count ++; 
+    }
+    cout << "\nThere are " << count << " items in Linked List\n"; cout << endl;
+}
+
+int main() {
+    Node* head = NULL; 
+    // Need '&' i.e. address as we need to change head 
+    insertNode(&head,50);
+    insertNode(&head,40);
+    insertNode(&head,30);
+    insertNode(&head,20);
+    insertNode(&head,10);
+
+    // No '&' as head is not changed 
+    display(head);
+
+    deleteNode(&head); 
+    deleteNode(&head); 
+    deleteNode(&head);
+  
+    display(head); 
+    return 0;
+}
+Output
+Linked List: 10 20 30 40 50 
+There are 5 items in Linked List
+
+Linked List: 40 50 
+There are 2 items in Linked List
+
+Disadvantages of singly linked list in CPP programming
+Members could be assigned anywhere in the memory.
+Each member shall include an address size member, hence it utilizes poor memory.
+Some operations like reversing a list is complicated when compared with arrays,
+
+
+What is a doubly linked list in CPP programming?
+Doubly linked list in C++ is the advanced and complex type of linked list that allows users to easily navigate through the linked list in both directions, from head to tail as well as from tail to head. The beginning node of the linked list is referred to as the header and the last node is referred to as the tail. Unlike the single-linked list, each node of the double-linked list is divided into three corresponding sections, previous which points the address of previous node , data which stores the value of the node and next which points the next node in the list.
+
+ Why Doubly Linked List?
+Saves time
+A doubly linked list can be traversed in both the directions hence it saves time when we need to traversed in the list.
+
+Efficient operations on a specific position
+Insertion and deletion operations of specific position are more efficient in doubly linked list.
+
+Effective memory utilization
+It utilizes memory as we can construct and delete nodes according to our need so wastage of the memory is not there
+
+struct Node 
+{
+  int Data;
+  Struct Node* next;
+  Struct Node* prev;
+};
+
+#include <iostream>
+using namespace std;
+struct Node {
+   int data;
+   struct Node *prev;
+   struct Node *next;
+};
+struct Node* head = NULL;
+void insert(int newdata) {
+   struct Node* newnode = (struct Node*) malloc(sizeof(struct Node));
+   newnode->data = newdata;
+   newnode->prev = NULL;
+   newnode->next = head;
+   if(head != NULL)
+   head->prev = newnode ;
+   head = newnode;
+}
+void display() {
+   struct Node* ptr;
+   ptr = head;
+   while(ptr != NULL) {
+      cout<< ptr->data <<" ";
+      ptr = ptr->next;
+   }
+}
+int main() {
+   insert(3);
+   insert(1);
+   insert(7);
+   insert(2);
+   insert(9);
+   cout<<"The doubly linked list is: ";
+   display();
+   return 0;
+}
+Output:
+The doubly linked list is: 9 2 7 1 3
+
+
+What is a circular linked list in C++?
+The circular linked list in C++ is another data structure, which is an enhancement of the linked list data structure. As we have studied that the linked list is a data structure in which every node in the list has the link of its next node and the last node is pointing to null. Similarly, in the circular linked list, every node has the link to its next node and the last node does not point to null like a linked list rather it points to the head of the list.
+
+Why Circular Linked List?
+ 
+Traversing the list becomes easy
+Entire list can be traversed fro any node of the list as it forms a loop like structure. Going from last node to first node is just a single step process because of this.
+
+Implementation of advance data structure
+Circular linked list are used for the implementation of advance data structures like queues,etc.
+
+Useful in applications that go around in a loop
+Developing the applications that never ends or always go around in a loop become easy using circular linked list.
+
+Structure of circular linked list
+Circular linked can be of both singly and doubly type. So they can be defined in a program by using following set of code.
+
+Singly circular linked list is :-
+struct node
+{
+   int data;
+   struct node *next;
+}
+Doubly circular linked list is:-
+struct node   
+{  
+  struct node *prev; 
+  int data; 
+  struct node *next;   
+}   
+
+
+#include <iostream>
+#include <stdlib.h>
+
+struct node {
+    int num;
+    struct node * nextptr;
+}*startnode;
+ 
+
+void creation(int n);
+void display();
+
+int main() //main method
+{
+    int n;
+    startnode = NULL;
+
+    printf("Enter the number of nodes : ");
+    scanf("%d", &n);
+ 
+    creation(n); 
+    display();
+    return 0;
+}
+
+void creation(int n)//function to create list
+{
+    int i, num;
+    struct node *preptr, *newnode;
+
+    if(n >= 1)
+    {
+        startnode = (struct node *)malloc(sizeof(struct node));
+
+        printf("Enter data for node 1 : ");
+        scanf("%d", &num);
+        startnode->num = num;
+        startnode->nextptr = NULL;
+        preptr = startnode;
+        for(i=2; i<=n; i++)
+        {
+            newnode = (struct node *)malloc(sizeof(struct node));
+            printf("Enter data for node %d : ", i);
+            scanf("%d", &num);
+            newnode->num = num;
+            newnode->nextptr = NULL;	
+            preptr->nextptr = newnode;	
+            preptr = newnode;   		
+        }
+        preptr->nextptr = startnode; 		
+    }
+}
+
+void display() //function to display list 
+{
+    struct node *tmp;
+    int n,i;
+
+    if(startnode == NULL)
+    {
+        printf("List is empty");
+    }
+    else
+    {
+        tmp = startnode;
+        printf("\nData entered in the list are :\n");
+
+      do {
+            printf("Node %d : %d\n", n, tmp->num);
+
+            tmp = tmp->nextptr;
+            n++;
+        }while(tmp != startnode);
+    }
+}
+Disadvantages of circular linked list in C++
+To insert node at the beginning we have to traverse till the last node, hence insertion at the beginning becomes a lengthy task.
+End of the list does not point to NULL so it becomes harder to find the last node.
+Circular linked list could end up in infinite loop if not traversed correctly.
+Reversing a circular linked list is quite a difficult task when compared with singly and doubly linked list.

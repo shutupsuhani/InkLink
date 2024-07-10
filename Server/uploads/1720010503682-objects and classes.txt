@@ -1,0 +1,315 @@
+ 
+
+OOPS Concepts
+In C++
+
+There are four pillars of Object-Oriented Programming concept: Encapsulation,Data hiding, Inheritance and Polymorphism and they pretty much run the OOPS concept in C++ . These functionalities are implemented with the help of Classes and Objects.
+
+What are Classes and Objects in C++ ?
+Classes and objects are building blocks of C++. There are user-defined data types that are created to mimic real-world objects. Classes hold their own data members and member functions.
+
+Why Classes?
+Programmers long demanded a feature in the programming language that allowed creating an interface with which they can define some common properties and methods that can be used by instances of that interface.
+
+Declaring Objects
+
+int main(){
+    
+    // declaring two objects here
+    class_name object_name1, object_name2;
+    
+}
+
+Example to Demonstrate above
+Run
+#include <iostream>
+using namespace std;
+
+// name of the class
+class Student
+{
+    // access specifier
+    public:
+    
+    // data members variables
+    int rollNo, weight, age;
+    string name;
+    
+    // member functions
+    void displayDetails()
+    {
+        cout << "Roll No: " << rollNo << endl;
+        cout << "Name: " << name << endl;
+    }
+};
+
+int main(){
+    
+    // declare Student object s1
+    Student s1;
+    
+    // assigning values
+    s1.rollNo = 1;
+    s1.weight = 80;
+    s1.age = 21;
+    s1.name = "Peter";
+    
+    // calling function for s1 object
+    s1.displayDetails();
+    
+    return 0;
+}
+Output
+Roll No: 1
+Name: Peter
+
+
+Class
+The design concept of class is similar to that of structures and unions
+
+Apt Definition of a class: A class is a logical entity where you can write logic (statements)
+No memory gets allocated for a class
+Class Can be created as follows
+
+class name_of_class{
+    
+    // access specifiers
+    public:
+    
+    // data members and member functions
+    int variable1;
+    
+    void functioName1(){
+        // function definition here
+    }
+}
+Example:
+// name of the class
+class Student
+{
+    // access specifier
+    public:
+    
+    // data members variables
+    int rollNo, weight, age;
+    string name;
+    
+    // member functions
+    void displayDetails()
+    {
+        cout << "Roll No: " << rollNo << endl;
+        cout << "Name: " << name << endl;
+    }
+};
+
+An object is a physical entity that represents memory for a class
+
+Definition of an object: The object is an instance of a class it holds the amount of memory required for the Logic present in the class
+Hence you call an object an instance of a class or a real-world entity
+
+int main(){
+    
+    // declare Student object s1
+    Student s1;
+    
+    // assigning values
+    s1.rollNo = 1;
+    s1.weight = 80;
+    s1.age = 21;
+    s1.name = "Peter";
+    
+    // calling function for s1 object
+    s1.displayDetails();
+    
+    return 0;
+}
+Example
+Run
+#include<iostream>
+using namespace std;
+
+// name of the class
+class Student
+{
+    // access specifier
+    public:
+    
+    // data members variables
+    int rollNo, weight, age;
+    string name;
+    
+    // member functions
+    void displayDetails()
+    {
+        cout << "Roll No: " << rollNo << endl;
+        cout << "Name: " << name << endl;
+    }
+};
+
+int main(){
+    
+    // declare Student object s1
+    Student s1;
+    
+    // assigning values
+    s1.rollNo = 1;
+    s1.weight = 80;
+    s1.age = 21;
+    s1.name = "Peter";
+    
+    // calling function for s1 object
+    s1.displayDetails();
+    
+    return 0;
+}
+Output
+Roll No: 1
+Name: Peter
+How Encapsulation is achieved in C++
+Encapsulation is a state of binding/wrapping related data or code in one place.
+
+In C++, we achieve this with classes by bundling all data members and member functions within a single class as shown below –
+
+
+#include <iostream>
+using namespace std;
+
+class Rect {
+  public:
+    int len;
+    int breadth;
+
+    int calculateArea() {
+      return len * breadth;
+    }
+};
+
+int main(){
+    
+    Rect obj;
+    
+    obj.len = 10;
+    obj.breadth = 20;
+    
+    cout << "Area: " << obj.calculateArea();
+}
+
+#include <iostream>
+using namespace std;
+
+class Rect {
+  
+  // data members are private and can not be accessed directly
+  // access specifiers
+  private:
+    int len;
+    int breadth;
+    
+    
+  public:
+  
+    // setter for length
+    void setLen(int l){
+        len = l;
+    }
+    
+    // setter for breadth
+    void setBreadth(int b){
+        breadth = b;
+    }
+    
+    // getter for length
+    int getLen(){
+        return len;
+    }
+    
+    // getter for breadth
+    int getBreadth(){
+        return breadth;
+    }
+    
+    int calculateArea() {
+      return len * breadth;
+    }
+
+};
+
+int main(){
+    
+    Rect obj;
+    
+    // the following will give errors as data members are private now
+    // obj.len = 10;
+    // obj.breadth = 20;
+    
+    // Following will be allowed
+    // these are called as getters (to get value)
+    // and setters (to set value)
+    
+    obj.setLen(10);
+    obj.setBreadth(20);
+    
+    cout << "Length:" << obj.getLen() << endl;
+    cout << "Breadth: " << obj.getBreadth() << endl;
+    
+    cout << "Area: " << obj.calculateArea();
+}
+Output
+Length:10
+Breadth: 20
+Area: 200
+
+
+What is Data Abstraction in C++?
+The functionality of hiding the actual details or implementation details for a procedure and just displaying limited essential information or tools, or in other words providing only essential information to the outside world and hiding all the background details and implementation of the procedure is known as Data Abstraction in C++.
+
+Types of Abstraction
+ there are two types of Abstraction –
+
+Header files
+Classes
+
+Header Files –
+We all use header files, we import #include to use the power function. We directly use the pow() function as pow(2, 3) to get results. 
+
+Classes –
+In C++, we can define which data members & member function implementation we want to show to the outside world and which ones we want to hide.
+
+How do Access Specifiers help in Data Abstraction?
+There are three types of access specifiers in C++
+
+Public
+Private
+Protected
+
+#include <iostream>
+using namespace std;
+
+class myClass {
+  // data members and functions declared public
+  public:
+  
+    int x, y;
+    
+    // constructor to setup initial value at object creation
+    // we will learn about constructors later
+    myClass(int val1, int val2){
+        x = val1;
+        y = val2;
+    }
+
+};
+
+int main(){
+    myClass obj(10, 15);
+    
+    // we are directly able to access values
+    obj.x = 100;
+    obj.y = 200;
+    
+    cout << "x: " << obj.x << " y: " << obj.y << endl;
+    
+    return 0;
+}
+Output
+x: 100 y: 200

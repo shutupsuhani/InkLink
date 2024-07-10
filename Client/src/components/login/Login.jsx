@@ -23,7 +23,8 @@ const Login = () => {
     e.preventDefault();
     try {
       await loginCall({ email: email.current.value, username: username.current.value, password: password.current.value }, dispatch);
-      console.log("Logged in successfully"); // Log after successful login
+      console.log("Logged in successfully");
+    //  localStorage.setItem('user', JSON.stringify(username.current.value));
       navigate("/"); 
     } catch (error) {
       console.error("Login failed:", error.message); // Handle login failure

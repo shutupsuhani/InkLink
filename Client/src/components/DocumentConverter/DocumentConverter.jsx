@@ -41,9 +41,9 @@ const DocumentConverter = () => {
       let endpoint = "";
 
       if (format === "images") {
-        endpoint = "https://ink-link-server.vercel.app/api/fileConvert/convert/image2pdf";
+        endpoint = "http://localhost:3000/api/fileConvert/convert/image2pdf";
       } else if (format === "docx") {
-        endpoint = "https://ink-link-server.vercel.app/api/fileConvert/convert/doc2pdf";
+        endpoint = "http://localhost:3000/api/fileConvert/convert/doc2pdf";
       } else {
         throw new Error("Unsupported format selected");
       }
@@ -64,7 +64,7 @@ const DocumentConverter = () => {
   };
 
   const handleDownload = () => {
-    window.location.href = `https://ink-link-server.vercel.app${downloadLink}`;
+    window.location.href = `http://localhost:3000${downloadLink}`;
   };
 
   return (
@@ -97,7 +97,7 @@ const DocumentConverter = () => {
             component="span"
             startIcon={<CloudUpload />}
           >
-            Upload File
+            <span><CloudUpload/></span>
           </Button>
         </label>
 
