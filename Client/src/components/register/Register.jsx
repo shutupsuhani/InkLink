@@ -14,6 +14,7 @@ import { AuthContext } from "../../Context/AuthContext.jsx";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
+
 const Register = () => {
   const [formData, setFormData] = useState({
     firstname: '',
@@ -38,7 +39,7 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const url = `${import.meta.env.VITE_SERVER_URL}/api/auth/signup`;
+      const url = `${process.env.VITE_SERVER_URL}/api/auth/signup`;
       console.log('Submitting to URL:', url);  // Log the URL being used
       const response = await axios.post(url, formData);
       if (response && response.data) {
