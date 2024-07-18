@@ -39,7 +39,7 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const url = `${process.env.VITE_SERVER_URL}/api/auth/signup`;
+      const url = `https://ink-link-server.vercel.app/api/auth/signup`;
       console.log('Submitting to URL:', url);  // Log the URL being used
       const response = await axios.post(url, formData);
       if (response && response.data) {
