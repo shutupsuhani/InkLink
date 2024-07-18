@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import { CloudUpload } from "@mui/icons-material";
 import { useDropzone } from 'react-dropzone';
 
+
 const Doc = () => {
   const [file, setFile] = useState(null);
   const [description, setDescription] = useState('');
@@ -39,7 +40,7 @@ const Doc = () => {
     formData.append('userId', user._id);
     
     try {
-      const response = await axios.post(`http://localhost:3000/api/file/upload/${user._id}`, formData, {
+      const response = await axios.post(`${import.meta.env.VITE_SERVER_URL}/api/file/upload/${user._id}`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

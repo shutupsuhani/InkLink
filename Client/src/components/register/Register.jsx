@@ -1,4 +1,4 @@
-import { useState ,useContext } from "react";
+import { useState, useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faEye,
@@ -14,7 +14,6 @@ import { AuthContext } from "../../Context/AuthContext.jsx";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
-
 const Register = () => {
   const [formData, setFormData] = useState({
     firstname: '',
@@ -26,6 +25,7 @@ const Register = () => {
 
   const [passwordVisible, setPasswordVisible] = useState(false);
   const { isFetching, error, dispatch } = useContext(AuthContext);
+
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
   };
@@ -38,7 +38,9 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:3000/api/auth/signup', formData);
+      const url = `${import.meta.env.VITE_SERVER_URL}/api/auth/signup`;
+      console.log('Submitting to URL:', url);  // Log the URL being used
+      const response = await axios.post(url, formData);
       if (response && response.data) {
         console.log('Signup successful:', response.data);
         toast.success('Signup successful!');
@@ -89,13 +91,7 @@ const Register = () => {
                   <div className="Inputfield">
                     <label className="inputlabel">Last Name:</label>
                     <div className="inputwrapper">
-                      <input
-                        className="inputarea"
-                        type="text"
-                        name="lastname"
-                        placeholder="Last Name" value={formData.lastname} onChange={handleChange}
-                        required
-                      />
+                      <input className="inputarea" type="text" name="lastname" placeholder="Last Name" value={formData.lastname} onChange={handleChange} required />
                       <FontAwesomeIcon icon={faUser} className="inputicon" />
                     </div>
                   </div>
@@ -103,39 +99,21 @@ const Register = () => {
                 <div className="Inputfield">
                   <label className="inputlabel">Username:</label>
                   <div className="inputwrapper">
-                    <input
-                      className="inputarea"
-                      type="text"
-                      name="username"
-                      placeholder="Username" value={formData.username} onChange={handleChange}
-                      required
-                    />
+                    <input className="inputarea" type="text" name="username" placeholder="Username" value={formData.username} onChange={handleChange} required />
                     <FontAwesomeIcon icon={faUser} className="inputicon" />
                   </div>
                 </div>
                 <div className="Inputfield">
                   <label className="inputlabel">Password:</label>
                   <div className="inputwrapper">
-                    <input
-                      className="inputarea"
-                      type={passwordVisible ? "text" : "password"}
-                      name="password"
-                      placeholder="Enter Password"
-                      value={formData.password} onChange={handleChange}
-                      required
-                    />
-                    <FontAwesomeIcon
-                      icon={passwordVisible ? faEyeSlash : faEye}
-                      className="inputicon"
-                      onClick={togglePasswordVisibility}
-                    />
+                    <input className="inputarea" type={passwordVisible ? "text" : "password"} name="password" placeholder="Enter Password" value={formData.password} onChange={handleChange} required />
+                    <FontAwesomeIcon icon={passwordVisible ? faEyeSlash : faEye} className="inputicon" onClick={togglePasswordVisibility} />
                   </div>
                 </div>
-              
                 <button type="submit" className="registerbutton" disabled={isFetching}>
-                {isFetching ? <img src="./loading.gif" width={15} height={15}/> : "Register"}
+                  {isFetching ? <img src="/loading.gif" width={15} height={15} alt="Loading"/> : "Register"}
                 </button>
-                <p>Already Have an Account?<Link to='/login'>Login</Link></p>
+                <p>Already Have an Account? <Link to='/login'>Login</Link></p>
               </form>
             </div>
           </div>
